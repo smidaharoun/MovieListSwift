@@ -10,12 +10,16 @@ import UIKit
 
 class MovieTableViewCell: UITableViewCell {
     
+    // MARK: - IBOulets
+
     @IBOutlet weak var borderContentView: UIView!
     @IBOutlet weak var coverImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var yearLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var seeMoreButton: UIButton!
+    
+    // MARK: - Override
     
     override var isSelected: Bool {
         didSet {
@@ -32,8 +36,12 @@ class MovieTableViewCell: UITableViewCell {
 
 class MovieListTableViewController: UITableViewController {
     
+    // MARK: - Global Variables
+    
     var data: [Movie] = []
     var lastExpandedRow: Int = -1
+
+    // MARK: - View controller methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,44 +49,34 @@ class MovieListTableViewController: UITableViewController {
         loadData()
     }
     
+    // MARK: - Initialization
+
     func initliazeViews() {
         title = "Star Wars"
         navigationController?.navigationBar.isTranslucent = false
         tableView.separatorStyle = .none
     }
     
-    func loadData() {
-        let url = URL(string: "http://www.mocky.io/v2/5915cf73100000470575966f")
-        let task = URLSession.shared.dataTask(with: url!, completionHandler: {
-            (data, response, error) in
-            if let data = data {
-                do {
-                    let jsonDecoder = JSONDecoder()
-                    self.data = try jsonDecoder.decode([Movie].self, from: data).sorted(by: { (lhs, rhs) -> Bool in
-                        rhs.year ?? 0 > lhs.year ?? 0
-                    })
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
-                } catch let error as NSError {
-                    print(error.localizedDescription)
-                }
-            } else if let error = error {
-                print(error.localizedDescription)
-            }
-        })
-        task.resume()
-    }
+    // MARK: Handling Data Results
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func loadData() {
+        view.startLoading()
+        Api.getMovies { (data, error) in
+            self.view.stopLoading()
+            if data != nil {
+                self.data = data!
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            } else {
+                print(error!.localizedDescription)
+            }
+        }
     }
 
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return data.count
     }
     
@@ -100,6 +98,11 @@ class MovieListTableViewController: UITableViewController {
         cell.descriptionLabel.contentMode = .top
         cell.seeMoreButton.tag = indexPath.row
         cell.seeMoreButton.addTarget(self, action: #selector(collapseAction(_:)), for: .touchUpInside)
+        if lastExpandedRow != indexPath.row {
+            cell.seeMoreButton.transform = CGAffineTransform(rotationAngle: 0)
+        } else {
+            cell.seeMoreButton.transform = CGAffineTransform(rotationAngle: .pi * 0.5)
+        }
         cell.coverImageView.setCornerRadius(radius: 18)
         cell.borderContentView.setCornerRadius(radius: 18)
         cell.borderContentView.setStroke(color: UIColor.gray, width: 1)
@@ -107,6 +110,8 @@ class MovieListTableViewController: UITableViewController {
 
         return cell
     }
+    
+    // MARK: - Table view delegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let viewController = self.storyboard?.instantiateViewController(withIdentifier: String(describing: MovieDetailsViewController.self)) as! MovieDetailsViewController
@@ -120,8 +125,13 @@ class MovieListTableViewController: UITableViewController {
             var angle: CGFloat = .pi * 0.5
             if lastExpandedRow == button.tag {
                 lastExpandedRow = -1
-                angle = -angle
+                angle = 0
             } else {
+                if let previousCell = tableView.cellForRow(at: IndexPath(row: lastExpandedRow, section: 0)) as? MovieTableViewCell {
+                    UIView.animate(withDuration: 0.2, animations: {
+                        previousCell.seeMoreButton.transform = CGAffineTransform(rotationAngle: 0)
+                    })
+                }
                 lastExpandedRow = button.tag
             }
             UIView.animate(withDuration: 0.2, animations: {

@@ -9,6 +9,7 @@
 import UIKit
 
 extension UIImageView {
+    /// this method is used the load image from URL (lazy loading)
     func setImage(with url:URL) {
         URLSession.shared.dataTask( with: url, completionHandler: {
             (data, response, error) -> Void in

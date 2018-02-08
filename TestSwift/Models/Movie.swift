@@ -8,6 +8,7 @@
 
 import Foundation
 struct Movie : Codable {
+    
 	let image : String?
 	let title : String?
 	let intro : String?
