@@ -2,37 +2,12 @@
 //  MovieListTableViewController.swift
 //  TestSwift
 //
-//  Created by ODC on 2/8/18.
+//  Created by Haroun SMIDA on 2/8/18.
+
 //  Copyright © 2018 sonic. All rights reserved.
 //
 
 import UIKit
-
-class MovieTableViewCell: UITableViewCell {
-    
-    // MARK: - IBOulets
-
-    @IBOutlet weak var borderContentView: UIView!
-    @IBOutlet weak var coverImageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var yearLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var seeMoreButton: UIButton!
-    
-    // MARK: - Override
-    
-    override var isSelected: Bool {
-        didSet {
-            self.borderContentView.backgroundColor = isSelected ? UIColor.lightGray : UIColor.white
-        }
-    }
-    
-    override var isHighlighted: Bool {
-        didSet {
-            self.borderContentView.backgroundColor =  isHighlighted ? UIColor.lightGray : UIColor.white
-        }
-    }
-}
 
 class MovieListTableViewController: UITableViewController {
     
@@ -106,7 +81,13 @@ class MovieListTableViewController: UITableViewController {
         cell.coverImageView.setCornerRadius(radius: 18)
         cell.borderContentView.setCornerRadius(radius: 18)
         cell.borderContentView.setStroke(color: UIColor.gray, width: 1)
-        cell.coverImageView.setImage(with: URL(string: item.image!)!)
+        if let image = item.image, let url = URL(string: image) {
+            cell.coverImageView.kf.setImage(with: url,
+                                            placeholder: nil,
+                                            options: nil,
+                                            progressBlock: nil,
+                                            completionHandler: nil)
+        }
 
         return cell
     }
