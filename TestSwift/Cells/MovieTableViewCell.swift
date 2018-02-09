@@ -28,4 +28,5 @@ class MovieTableViewCell: UITableViewCell {
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         borderContentView.backgroundColor = highlighted ? UIColor.lightGray : UIColor.white
     }
+    
 }

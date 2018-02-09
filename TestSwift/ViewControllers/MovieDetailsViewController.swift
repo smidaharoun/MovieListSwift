@@ -10,7 +10,6 @@
 import UIKit
 
 class MovieDetailsViewController: UIViewController {
-    
     // MARK: - IBOulets
     
     @IBOutlet weak var coverImageView: UIImageView!

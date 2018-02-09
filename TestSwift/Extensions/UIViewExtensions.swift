@@ -12,6 +12,7 @@ import UIKit
 private var activityIndicator: UIActivityIndicatorView!
 
 public extension UIView {
+    
     /// Add an UIActivityIndicatorView to the view and start loading,
     /// this method is called when there is a network call.
     public func startLoading() {
@@ -41,10 +42,12 @@ public extension UIView {
             subView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             subView.centerYAnchor.constraint(equalTo: self.centerYAnchor)])
     }
+    
 }
 
 
 extension UIView {
+    
     /// this method apply a corner radius to the view
     func setCornerRadius(radius: Int = 30) {
         self.clipsToBounds = true
@@ -56,4 +59,5 @@ extension UIView {
         self.layer.borderColor = color.cgColor
         self.layer.borderWidth = width
     }
+    
 }

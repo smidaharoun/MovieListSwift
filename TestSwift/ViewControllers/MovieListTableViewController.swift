@@ -10,7 +10,6 @@
 import UIKit
 
 class MovieListTableViewController: UITableViewController {
-    
     // MARK: - Global Variables
     
     var data: [Movie] = []
