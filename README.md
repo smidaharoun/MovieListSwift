@@ -25,8 +25,7 @@ No configuration required
 
 ## Meta
 
-Your Name – [@YourTwitter](https://twitter.com/HarounSMIDA) – smida.haroun@gmail.com
+Haroun SMIDA – [@HarounSMIDA](https://twitter.com/HarounSMIDA) – smida.haroun@gmail.com
 
-Distributed under the XYZ license. See ``LICENSE`` for more information.
 
-[https://github.com/yourname/github-link](https://github.com/smidaharoun/)
+[https://github.com/smidaharoun](https://github.com/smidaharoun/)
