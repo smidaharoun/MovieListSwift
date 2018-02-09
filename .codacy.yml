@@ -1,0 +1,20 @@
+---
+engines:
+ rubocop:
+   enabled: true
+   exclude_paths:
+     - libraries/*
+ duplication:
+   enabled: true
+   exclude_paths:
+     - libraries/*
+ metrics:
+   enabled: true
+   exclude_paths:
+     - libraries/*
+ coverage:
+   enabled: true
+   exclude_paths:
+     - libraries/*
+exclude_paths:
+  - libraries/*
