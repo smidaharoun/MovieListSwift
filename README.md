@@ -9,7 +9,8 @@ This app is a gallery from movies, it has two interfaces.
 ## Requirements
 
 - iOS 8.0+
-- Xcode 7.3
+- Xcode 9
+- Swift 4
 
 ## Installation
 
