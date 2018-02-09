@@ -1,7 +1,6 @@
 # Movie List
 > Movie list app
 
-[Swift Version](https://img.shields.io/badge/swift-4-brightgreen.svg)
 [![Platform](https://img.shields.io/cocoapods/p/LFAlertController.svg?style=flat)]
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/dab68764dd0148e9b1282b85b9d2933c)](https://www.codacy.com/app/smidaharoun/MovieListSwift?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=smidaharoun/MovieListSwift&amp;utm_campaign=Badge_Grade)
 
